@@ -1,4 +1,4 @@
-import Food from "./food";
+import Food from "./Food";
 import Snake from "./Snake";
 import Scoreboard from "./Scoreboard";
 
