@@ -15,6 +15,6 @@ npm install;
 
 npm start;
 
-# Get to know about me 
+# Technologies
 
-the game uses TS and LESS. Hope you like it.
+The game is built using Typescript, Webpack and Less.
