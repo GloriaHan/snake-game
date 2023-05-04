@@ -1,8 +1,6 @@
 import Food from "./Food";
 import Snake from "./Snake";
 import Scoreboard from "./Scoreboard";
-
-
 class GameControl {
   snake: Snake;
   food: Food;
@@ -11,14 +9,16 @@ class GameControl {
   alertBox: HTMLElement;
   isAlive = true;
   isPaused = false;
-
+  runInterval: ReturnType<typeof setInterval>;
+  
   constructor(){
     this.snake = new Snake();
     this.food = new Food();
     this.scoreboard = new Scoreboard();
     this.init();
+    this.runInterval = setInterval(()=>{}) ;
     this.alertBox = document.getElementById('alert-box')!;
-
+    this.snakeRunning();
   }
 
   init(){
@@ -29,7 +29,6 @@ class GameControl {
     const btnDown = document.getElementById('btn-down')!;
     const btnLeft = document.getElementById('btn-left')!;
     const btnRight = document.getElementById('btn-right')!;
-  
 
     btnUp.addEventListener('click', () => {
       this.direction = 'Up';
@@ -54,13 +53,15 @@ class GameControl {
     pauseBtn.addEventListener('click', () => {
       this.togglePause();
     });
-
-    this.run();
   }
 
   keydownhandler(event: KeyboardEvent){
     if (event.code === 'ArrowUp' || event.code === 'ArrowDown') {
       event.preventDefault();
+    }
+    if (!this.isAlive) {
+      // If the game is not alive, start the game by calling resetGame method
+      this.resetGame();
     }
     this.direction = event.key;
   }
@@ -73,13 +74,17 @@ class GameControl {
     this.snake.reset();
     this.direction = '';
     this.isAlive = true;
+    this.isPaused = false;
+    const pauseBtn = document.getElementById('pause')!;
+    pauseBtn.textContent = "PAUSE";
+    pauseBtn.style.backgroundColor = '#96b9b1';
     this.alertBox.style.visibility = 'hidden';
-    this.init();
     //  remove the focus from start button
     activeEl && activeEl.blur();
-    console.log('start')
+    console.log('start');
+    clearInterval(this.runInterval);
+    this.snakeRunning();
   }
-
 
   run(){
     if (!this.isPaused){
@@ -115,23 +120,27 @@ class GameControl {
         alertContent.textContent = `${event.message} Game Over!`;
         this.alertBox.style.visibility = 'visible';
         this.isAlive = false;
-      }
-        
-      this.isAlive && setTimeout(this.run.bind(this), 300-(this.scoreboard.level-1)*30);
-    }else{
-      setTimeout(this.run.bind(this), 100);
+      }       
     }
   }
 
+  snakeRunning(){
+    if(!this.isPaused && this.isAlive ){
+      this.runInterval = setInterval(this.run.bind(this), 300-(this.scoreboard.level-1)*30);
+    }
+    }
+
   togglePause() {
-    this.isPaused = !this.isPaused;
-    const pauseBtn = document.getElementById('pause')!;
-    if (this.isPaused) {
-      pauseBtn.textContent = "PLAY";
-      pauseBtn.style.backgroundColor = '#e4a93b';
-    } else {
-      pauseBtn.textContent = "PAUSE";
-      pauseBtn.style.backgroundColor = '#96b9b1';
+    if(this.isAlive){
+      this.isPaused = !this.isPaused;
+      const pauseBtn = document.getElementById('pause')!;
+      if (this.isPaused) {
+        pauseBtn.textContent = "PLAY";
+        pauseBtn.style.backgroundColor = '#e4a93b';
+      } else {
+        pauseBtn.textContent = "PAUSE";
+        pauseBtn.style.backgroundColor = '#96b9b1';
+      }
     }
   }
 
@@ -143,8 +152,5 @@ class GameControl {
      }
     }
   }
-
-
-
 
 export default GameControl;
