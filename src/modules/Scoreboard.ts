@@ -26,6 +26,12 @@ class Scoreboard{
       this.levelELe.innerHTML = ++this.level + '';
     }
   }
+
+  resetScore(){
+    this.scoreEle.innerHTML = 0 + '';
+    this.levelELe.innerHTML = 1 + '';
+    console.log('reset score')
+  }
 }
 
 export default Scoreboard;

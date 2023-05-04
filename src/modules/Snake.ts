@@ -17,6 +17,16 @@ class Snake{
     return this.head.offsetTop;
   }
 
+  reset(){
+    // Move the head back to the starting position
+  this.head.style.left = '0px';
+  this.head.style.top = '0px';
+  // Remove all the body parts except the head
+  while(this.body.length > 1){
+    this.element.removeChild(this.body[this.body.length - 1]);
+  }
+  }
+
   set X(value : number){  
     if(this.X === value){
     return;
@@ -79,6 +89,8 @@ class Snake{
       }
     }
   }
+
+
 }
 
 export default Snake;

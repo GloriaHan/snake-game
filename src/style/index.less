@@ -1,4 +1,6 @@
 @bg-color:#b7d4a8;
+@btn-color: #96b9b1;
+
 
 *{
   margin: 0;
@@ -11,7 +13,7 @@ body{
 }
 #main{
   width: 360px;
-  height: 420px;
+  height: 450px;
   margin:20px auto;
   background-color: @bg-color;
   border-radius: 20px;
@@ -58,7 +60,56 @@ body{
 }
 
 #scoreboard{
+  height: 20px;
   width: 300px;
   display: flex;
   justify-content: space-between;
+}
+
+#controlBoard{
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#gameControl{
+  &>button{
+  background-color: @btn-color;
+  font-size: 8px;
+  font-weight: bold;
+    height: 30px;
+    width: 40px;
+    margin:0 6px;
+  }
+}
+
+#directionControl{
+  &>button{
+  font-size: 16px;
+  font-weight: bold;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+#alert-box {
+  position: absolute;
+  visibility: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.alert-content {
+  padding: 10px;
+  width: 280px;
+  background-color: #fff;
+  border: 2px solid #000;
+  text-align: center;
+}
+
+#pause{
+  font-size: 30px;
+  font-weight: bolder;
 }
