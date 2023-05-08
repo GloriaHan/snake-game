@@ -1,4 +1,3 @@
-
 class Scoreboard{
   score = 0;
   level = 1;
@@ -24,6 +23,8 @@ class Scoreboard{
   levelUp(){
     if (this.level < this.maxLevel){
       this.levelELe.innerHTML = ++this.level + '';
+      const event = new Event('levelChanged');
+      document.dispatchEvent(event);
     }
   }
 
@@ -31,8 +32,7 @@ class Scoreboard{
     this.scoreEle.innerHTML = 0 + '';
     this.levelELe.innerHTML = 1 + '';
     this.score = 0;
-    this.level = 0;
-    console.log('reset score')
+    this.level = 1;
   }
 }
 

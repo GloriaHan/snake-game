@@ -19,6 +19,7 @@ class GameControl {
     this.init();
     this.runInterval = setInterval(()=>{}) ;
     this.alertBox = document.getElementById('alert-box')!;
+    document.addEventListener('levelChanged', this.snakeRunning.bind(this));
     this.snakeRunning();
   }
 
@@ -82,7 +83,6 @@ class GameControl {
     this.alertBox.style.visibility = 'hidden';
     //  remove the focus from start button
     activeEl && activeEl.blur();
-    console.log('start');
     clearInterval(this.runInterval);
     this.snakeRunning();
   }
@@ -126,7 +126,9 @@ class GameControl {
 
   snakeRunning(){
     if(!this.isPaused && this.isAlive ){
+      clearInterval(this.runInterval);
       this.runInterval = setInterval(this.run.bind(this), 300-(this.scoreboard.level-1)*30);
+      console.log(300-(this.scoreboard.level-1)*30)
     }
     }
 
