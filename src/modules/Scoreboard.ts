@@ -30,6 +30,8 @@ class Scoreboard{
   resetScore(){
     this.scoreEle.innerHTML = 0 + '';
     this.levelELe.innerHTML = 1 + '';
+    this.score = 0;
+    this.level = 0;
     console.log('reset score')
   }
 }

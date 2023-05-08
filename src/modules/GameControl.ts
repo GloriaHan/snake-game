@@ -15,6 +15,7 @@ class GameControl {
     this.snake = new Snake();
     this.food = new Food();
     this.scoreboard = new Scoreboard();
+    this.scoreboard.resetScore();
     this.init();
     this.runInterval = setInterval(()=>{}) ;
     this.alertBox = document.getElementById('alert-box')!;
@@ -90,7 +91,6 @@ class GameControl {
     if (!this.isPaused){
       let X = this.snake.X;
       let Y = this.snake.Y;
-
       switch (this.direction){
         case "ArrowUp":
         case "Up":
